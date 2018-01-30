@@ -1,0 +1,40 @@
+{% extends "header.html" %}
+{% block body %}
+<div class="content">
+<ul>
+{% for file in media_files %}
+    <li class="media-li">
+    <div class="media-file-container">
+        <div class="file-element files-text">
+            {{ file }}
+        </div>
+        <div class="file-element">
+        <form method=post enctype=multipart/form-data action="/default" class="files-form">
+        {% if file == current_default_file %}
+        <span class="default"> Default </span>
+        {% else %}
+        <button name="default-button" class="media-button" value="{{ file }}" class="files-form">Make Default</button>
+        {% endif %}
+        </form>
+        </div>
+        <div class="file-element">
+        <form method=post enctype=multipart/form-data action="/load">
+            <button name="playnow-button" class="media-button" value="{{ file }}" class="files-form">Play Now</button>
+        </form>
+        </div>
+        <div class="file-element">
+        <form method=post enctype=multipart/form-data action="/delete">
+            <button name="delete-button" class="media-button" value="{{ file }}" class="files-form">Delete</button>
+        </form>
+        </div>
+    </div>
+    </li>
+{% endfor %}
+</ul>
+<form method=post enctype=multipart/form-data class="upload-form" action='/files'>
+    <p><input type=file name=file>
+        <input type=submit value=upload class="upload-button"`>
+    </p>
+</form>
+</div>
+{% endblock %}

@@ -1,0 +1,75 @@
+body {
+    max-width: 1024px;
+}
+
+#main-view {
+    width: 100%;
+    margin: auto;
+}
+
+.content {
+    margin: auto;
+}
+
+.files-text {
+    float: left;
+    width: 225px;
+}
+
+.file-element {
+    display: inline-block;
+}
+
+.upload-form {
+    margin-left: 40px;
+    border: solid 1px black;
+}
+
+.upload-form p {
+    margin-left: 20px;
+}
+
+.media-li {
+    border: solid black 1px;
+    list-style: none;
+    margin-bottom: 10px;
+}
+
+.media-file-container {
+    margin: 10px;
+}
+
+.media-button {
+    float: right;
+    margin-right: 20px;
+}
+
+.default {
+    color: red;
+    float: right;
+    margin-left: 33px;
+    margin-right: 33px;
+}
+
+.files-form {
+    float: right;
+}
+
+.upload-button {
+    float: right;
+    margin-right: 30px;
+}
+
+.output-form {
+    border: solid 1px black;
+    margin-left: 40px;
+    height: 34px;
+    text-align: center;
+    padding-top: 10px;
+    margin-top: 10px;
+}
+
+.label {
+    margin-left: 40px;
+    margin-top: 10px;
+}
