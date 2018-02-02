@@ -7,7 +7,7 @@ sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
 
 def main():
     while True:
-        f = open('/home/multimedia/id.txt')
+        f = open('/home/multimedia/piplayer/id.txt')
         identity = f.readline().strip()
         sock.sendto(identity.encode('ascii'), ('255.255.255.255', 9955))
         time.sleep(10.0)

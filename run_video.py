@@ -1,4 +1,4 @@
-from picontrol.player import Player
+from piplayer.player import Player
 import os
 import json
 import time
@@ -53,8 +53,15 @@ def parse_message(msg):
             load_file()
         else:
             player.load(video_file)
-    if msg == 'reload':
-        load_file()
+    if 'rel:' in msg:
+        default = msg.split(':')[1]
+        print('default = {0}'.format(default))
+        if default == 'true':
+            load_file(True)
+        else:
+            print('Reloading same video.')
+            load_file(False)
+    
 
 def send_pause_state():
     state = player.get_pause()
@@ -113,13 +120,18 @@ def load_from_usb():
             continue
         return False
 
-def load_file():
+def load_file(default=True):
     global player
     if player is not None:
+        path = player.get_path()
         player.quit()
         del player
-    if not load_from_usb():
-        load_from_json()
+    if not default:
+        #player.reload()
+        player = Player(path)
+    else:
+        if not load_from_usb():
+            load_from_json()
 
 def main():
     #wm = pyinotify.WatchManager()

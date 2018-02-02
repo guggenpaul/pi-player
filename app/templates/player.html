@@ -1,13 +1,23 @@
 <div class="output-form">
-<form method=post enctype=multipart/form-data action="/control">
+<form method=post enctype=multipart/form-data action="/control" class="player-form">
     {% if pause_state == True %}
-        <button name="pausebutton" type="submit" value="unpause">
+        <button name="pausebutton" type="submit" value="unpause" class="form-element" title="Unpause player.">
             Unpause
         </button>
     {% else %}
-        <button name="pausebutton" type="submit" value="pause">
+        <button name="pausebutton" type="submit" value="pause" class="form-element" title="Pause player.">
             Pause
         </button>
     {% endif %}
+</form>
+<form method=post enctype=multiform/form-data action="/reload" class="player-form">
+    <button name="reloadbutton" type="submit" value="reload" class="form-element" title="Reload default configuration.">
+        Reload
+    </button>
+</form>
+<form method=post enctype=multiform/form-data action="/reboot" class="player-form" title="Reboot player.">
+    <button name="rebootbutton" type="submit" value="reboot" class="form-element">
+        Reboot
+    </button>
 </form>
 </div>

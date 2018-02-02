@@ -66,8 +66,11 @@ class PlayerController:
         msg = 'load:' + file
         self._send_msg(msg)
 
-    def reload(self):
-        msg = 'reload'
+    def reload(self, default=True):
+        if default:
+            msg = 'rel:true'
+        else:
+            msg = 'rel:false'
         self._send_msg(msg)
 
 if __name__ == '__main__':

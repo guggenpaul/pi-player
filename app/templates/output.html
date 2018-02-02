@@ -1,14 +1,14 @@
 <div class="output-form">
 <form method=post enctype=multipart/form-data action="/output">
-    <select name="videomode">
+    <select name="videomode" class="form-element" title="Select output mode.">
         <option value="hdmi" selected>HDMI</option>
         <option value="ntsc">NTSC</option>
-        <option value="dvi">DVI</option>
+        <option value="pal">PAL</option>
     </select>
-    <select name="videoaspect">
+    <select name="videoaspect" class="form-element" title="Select aspect ratio.">
         <option value="16:9" selected>16:9</option>
         <option value="4:3">4:3</option>
     </select>
-    <button name="submit">Submit</button>
+    <button name="submit" class="form-element" title="Submit mode.">Submit</button>
 </form>
 </div>

@@ -4,13 +4,17 @@ from werkzeug.utils import secure_filename
 import mediamanager
 from playercontroller import PlayerController
 import outputmanager
+import idmanager
 import keyboard
 import time
 import os
+from subprocess import call
+import threading
 
 player_controller = PlayerController()
 manager = mediamanager.MediaDirectoryManager('/home/multimedia/media')
 kr = keyboard.KeyboardReader()
+
 
 def load_video(num):
     v_int = int(num) - 1
@@ -22,8 +26,15 @@ def load_video(num):
 def set_video_output(key):
     if key == 'n':
         outputmanager.set_video_output('ntsc', '16:9')
-    else:
+    if key == 'm':
+        outputmanager.set_video_output('ntsc', '4:3')
+    if key == 'p':
+        outputmanager.set_video_output('pal', '16:9')
+    if key == 'o':
+        outputmanager.set_video_output('pal', '4:3')
+    if key == 'h':
         outputmanager.set_video_output('hdmi', '16:9')
+    player_controller.reload(False)
 
 def load_usb(k):
     player_controller.load('USB==USB')
@@ -36,6 +47,9 @@ for i in range(len(manager.get_media_files()) + 1):
 
 kr.add_binding('h', set_video_output)
 kr.add_binding('n', set_video_output)
+kr.add_binding('m', set_video_output)
+kr.add_binding('p', set_video_output)
+kr.add_binding('o', set_video_output)
 kr.add_binding('u', load_usb)
 kr.add_binding('r', reload_pi)
 
@@ -44,10 +58,11 @@ def allowed_file(filename):
 
 @app.route('/')
 def index():
+    name = idmanager.get_id()
     media_files = manager.get_media_files()
     current_default_file = manager.get_playlist()[0]
     pause_state = player_controller.get_pause()
-    return render_template('index.html', media_files=media_files, current_default_file=current_default_file, pause_state=pause_state)
+    return render_template('index.html', name=name, media_files=media_files, current_default_file=current_default_file, pause_state=pause_state)
 
 @app.route('/files', methods=['GET', 'POST'])
 def upload_file():
@@ -91,7 +106,8 @@ def output():
         video_output_mode = request.form['videomode']
         video_output_aspect = request.form['videoaspect']
         outputmanager.set_video_output(video_output_mode, video_output_aspect)
-        return redirect(request.url)
+        #time.sleep(1.0)
+        player_controller.reload(False)
     return redirect('/')
     #return render_template('output.html')
 
@@ -117,4 +133,29 @@ def delete():
         file_to_delete = request.form['delete-button']
         print('Deleting {0}'.format(file_to_delete))
         manager.delete_file(file_to_delete)
+    return redirect('/')
+
+@app.route('/rename', methods=['GET', 'POST'])
+def rename():
+    if request.method == 'POST':
+        name = request.form['id']
+        print('Setting id to {0}'.format(name))
+        idmanager.set_id(name)
+    return redirect('/')
+
+def shutdown():
+    time.sleep(1.0)
+    call(['sudo','shutdown','-r', 'now'])
+
+@app.route('/reboot', methods=['GET', 'POST'])
+def reboot():
+    if request.method == 'POST':
+        t = threading.Thread(target=shutdown)
+        t.start()
+    return redirect('/')
+
+@app.route('/reload', methods=['GET', 'POST'])
+def reload():
+    if request.method == 'POST':
+        player_controller.reload()
     return redirect('/')

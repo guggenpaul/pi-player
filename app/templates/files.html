@@ -13,18 +13,18 @@
         {% if file == current_default_file %}
         <span class="default"> Default </span>
         {% else %}
-        <button name="default-button" class="media-button" value="{{ file }}" class="files-form">Make Default</button>
+        <button name="default-button" class="media-button" value="{{ file }}" class="files-form" title="Set as default. Reload or reboot to see changes. Remove any USB drive.">Make Default</button>
         {% endif %}
         </form>
         </div>
         <div class="file-element">
         <form method=post enctype=multipart/form-data action="/load">
-            <button name="playnow-button" class="media-button" value="{{ file }}" class="files-form">Play Now</button>
+            <button name="playnow-button" class="media-button" value="{{ file }}" class="files-form" title="Play this file now. Will not change default.">Play Now</button>
         </form>
         </div>
         <div class="file-element">
         <form method=post enctype=multipart/form-data action="/delete">
-            <button name="delete-button" class="media-button" value="{{ file }}" class="files-form">Delete</button>
+            <button name="delete-button" class="media-button" value="{{ file }}" class="files-form" title="Permanently delete this file from storage.">Delete</button>
         </form>
         </div>
     </div>
@@ -32,8 +32,8 @@
 {% endfor %}
 </ul>
 <form method=post enctype=multipart/form-data class="upload-form" action='/files'>
-    <p><input type=file name=file>
-        <input type=submit value=upload class="upload-button"`>
+    <p><input type=file name=file title="Select new file to upload">
+        <input type=submit value=upload class="upload-button" title="Upload file.">
     </p>
 </form>
 </div>

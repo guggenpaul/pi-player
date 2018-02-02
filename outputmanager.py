@@ -21,8 +21,8 @@ def set_video_output(mode, aspect= '16:9'):
     arg_str = 'V:' + mode.upper() + ':' + aspect
     command = commands[arg_str]
     call(command)
-    call(FBSET_8)
-    call(FBSET_16)
+    #call(FBSET_8)
+    #call(FBSET_16)
     
 def set_audio_output(mode):
     arg_str = 'A' + ':' + mode.upper()

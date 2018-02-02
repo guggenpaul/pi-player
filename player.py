@@ -7,6 +7,7 @@ class Player:
 
     def __init__(self, video_file):
         self.player = None
+        self.path = ''
         self.load(video_file)
 
     def load(self, video_file):
@@ -63,3 +64,10 @@ class Player:
 
     def quit(self):
         self.player.quit()
+
+    def reload(self):
+        print('Reloading {0}'.format(self.path))
+        self.load(self.path)
+
+    def get_path(self):
+        return self.path
