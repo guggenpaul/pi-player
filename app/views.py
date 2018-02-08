@@ -60,6 +60,8 @@ def allowed_file(filename):
 def index():
     name = idmanager.get_id()
     media_files = manager.get_media_files()
+    for m in media_files:
+        m = m.replace('-', '&#8209')
     current_default_file = manager.get_playlist()[0]
     pause_state = player_controller.get_pause()
     return render_template('index.html', name=name, media_files=media_files, current_default_file=current_default_file, pause_state=pause_state)
@@ -81,6 +83,44 @@ def upload_file():
             return redirect('/')
     return redirect('/')
     #return render_template('files.html', media_files=manager.get_media_files(), current_default_file=manager.get_playlist()[0])
+
+@app.route('/piplayer')
+def piplayer():
+    return 'PiPlayer'
+
+@app.route('/uploader', methods=['GET', 'POST'])
+def upload():
+    if request.method == 'POST':
+        chunk_size = 4096
+        filename = request.files['file'].filename
+        print('Uploading {0}'.format(filename))
+        #print('File path = {0}'.format(request.form['path']))
+        #print('Just some words.')
+        print(request.form.keys())
+        for key in request.form.keys():
+            print(key)
+        if allowed_file(filename):
+            filename = secure_filename(filename)
+            with open(os.path.join(app.config['UPLOAD_FOLDER'], filename), 'bw') as f:
+                while True:
+                    chunk = request.files['file'].stream.read(chunk_size)
+                    if len(chunk) == 0:
+                        return 'Thanks'
+                    f.write(chunk)
+        else:
+            print('Bad filename')
+    return 'Thanks'
+
+@app.route('/uploaded', methods=['GET', 'POST'])
+def uploaded():
+    print('Upload confirmation received.')
+    #print(request.form.keys())
+    if request.method == 'POST':
+    #    for key in request.form.keys():
+    #        print('{0} = {1}'.format(key, request.form[key]))
+        print('Moving {0} from {1}'.format(request.form['file[name]'], request.form['file[path]']))
+        os.replace(request.form['file[path]'], os.path.join(app.config['UPLOAD_FOLDER'], request.form['file[name]']))  
+    return redirect('/')
 
 @app.route('/control', methods=['GET', 'POST'])
 def control():

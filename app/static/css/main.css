@@ -14,6 +14,9 @@ body {
 .files-text {
     float: left;
     width: 225px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .file-element {
@@ -81,3 +84,31 @@ body {
 .player-form{
     float: left;
 }
+
+#upload-progress{
+    border: none;
+    margin-top: -18px;
+    margin-left: 52px;
+}
+
+#progress{
+    width: 400px;
+    height: 30px;
+    background-color: white;
+    border: 1px solid black;
+    margin-left: 12px;
+    margin-top: -5px;
+    float: left;
+}
+
+#progress-bar{
+    width:0%;
+    height: 30px;
+    background-color: black;
+}
+
+#uploading-text{
+    float: left;
+    margin-left:10px;
+}
+
