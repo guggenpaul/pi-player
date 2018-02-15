@@ -13,7 +13,7 @@ media_path = os.environ['MEDIA_DIR']
 usb_path = '/media'
 
 #File extensions that player can load
-valid_file_extensions = ('mp4', 'm4v', 'mkv', 'mov', 'mpg')
+valid_file_extensions = ('mp4', 'MP4', 'm4v', 'M4V', 'mkv', 'MKV', 'mov', 'MOV', 'mpg', 'MPG', 'mpeg', 'MPEG', 'avi', 'AVI', 'wmv', 'WMV', 'vob', 'VOB')
 
 #The Player
 player = None

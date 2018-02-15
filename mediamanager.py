@@ -3,7 +3,7 @@ from os.path import isfile, join
 import json
 import copy
 
-accepted_media_types = ('.mp4','.mov','.mpg','.mpeg','.m4v','.mkv','.avi')
+accepted_media_types = ('.mp4','.mov','.mpg','.mpeg','.m4v','.mkv','.avi', '.vob', '.MP4', '.MOV', 'MPG', 'MPEG', '.M4V', '.MKV', '.AVI', '.VOB')
 playlist_file = 'playlist.json'
 blank_json = {'playlist':[]}
 
